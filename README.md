@@ -7,7 +7,7 @@ Basic parameters:
 - $g = 9.8$
 - Volume: $V = 3.5357495219262473\times 10^{-6}$
 - Contact angle: $45^\circ$
-- Surface tension: $\sigma = 0.0728N/m$
+- Surface tension: $\sigma = 0.0728\mathrm{N}/\mathrm{m}$
 
 Describe it with $z(r)$ (by symmetry). Then energy is computed by
 
