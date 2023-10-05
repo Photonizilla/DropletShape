@@ -11,12 +11,12 @@ Basic parameters:
 
 Describe it with $z(r)$ (by symmetry). Then energy is computed by
 
-$E = 2 \pi \int \rho g z^2 r \mathrm{d}r + 2\pi\sigma \int \sqrt{1 + (z')^2} r \mathrm{d}r,$
+$$E = 2 \pi \int \rho g z^2 r \mathrm{d}r + 2\pi\sigma \int \sqrt{1 + (z')^2} r \mathrm{d}r,$$
 
 with constrain
 
-$V = 2 \pi \int z r \mathrm{d}r.$
+$$V = 2 \pi \int z r \mathrm{d}r.$$
 
 Then we have
 
-$\delta \int \left( \rho g z^2 r + \sigma \sqrt{1 + (z')^2} r - \lambda zr \right) \mathrm{d}r = 0.$
+$$\delta \int \left( \rho g z^2 r + \sigma \sqrt{1 + (z')^2} r - \lambda zr \right) \mathrm{d}r = 0.$$
