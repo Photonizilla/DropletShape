@@ -37,7 +37,7 @@ $$ \delta \int \left[ \frac{1}{2}\rho g \left( z + \frac{\lambda}{\rho g} \right
 
 For simplicity's sake, take the square do no harm:
 
-$$ E = \alpha\left( \int zr \mathrm{d}r - \frac{V}{2\pi} \right)^2, \quad \text{where} \quad \alpha V^2 \gg \sigma R^2. $$
+$$ E' = \alpha\left( \int zr \mathrm{d}r - \frac{V}{2\pi} \right)^2, \quad \text{where} \quad \alpha V^2 \gg \sigma R^2. $$
 
 We just need to find the minimum of
 
