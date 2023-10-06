@@ -11,7 +11,7 @@ To determine the shape of a droplet of water on a horizontal surface.
 - Radius: $R = 10\mathrm{mm} = 10000\mathrm{\mu m}$
 - Surface tension: $\sigma = 0.0728\mathrm{N}/\mathrm{m} = 0.0728 * 10^{12} \mathrm{Force/\mu m} = 0.0728\times 10^{12} \mathrm{J/\mu m^2}$
 
-Note that these conditions are clearly not independent, but are consistent.
+$ 1\mathrm{N} = 10^6\mathrm{Force}. $ Note that these conditions are clearly not independent, but are consistent.
 
 Describe it with $z(r)$ (by symmetry). Then energy is computed by
 
@@ -34,10 +34,13 @@ $$ \delta \int \left[ \frac{1}{2}\rho g \left( z + \frac{\lambda}{\rho g} \right
 1. Contact angle is hard to use if we are to employ the variation method.
 2. And as you see, if we add a constrain of Volume, the problem gets really tricky. I think we can apply the following method:
    > Introduce some energy that is proportional to the change in volume:
+   >
    > $$ E = \alpha\left( \int zr \mathrm{d}r - \frac{V}{2\pi} \right)^2, $$
+   >
    > where $\alpha V^2 \gg \sigma R^2$.
 
 We just need to find the minimum of
+
 $$ E = \int \left( \frac{1}{2}\rho g z^2 r + \sigma \sqrt{1 + (z')^2} r \right) \mathrm{d}r + \alpha\left( \int zr \mathrm{d}r - \frac{V}{2\pi} \right)^2. $$
 
 ## Discrete Variation
@@ -46,11 +49,11 @@ Instead of the continuous function $z(r)$, we consider a sequence `a[20002]` whe
 
 Then we use
 
-| Continuous                  | Discrete           |
-| --------------------------- | ------------------ |
-| $z(r)$                      | `z[r]`             |
-| $z'(r)$                     | `z[r+1] - z[r]`    |
-| $\int f(z(r)) \mathrm{d} r$ | $\sum f($`z[r]`$)$ |
+| Continuous                  | Discrete                 |
+| --------------------------- | ------------------------ |
+| $z(r)$                      | `z[r]`                   |
+| $z'(r)$                     | `z[r+1] - z[r]`          |
+| $\int f(z(r)) \mathrm{d} r$ | $ \sum f( $ `z[r]` $ ) $ |
 
 to do the calculations.
 
