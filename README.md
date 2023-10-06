@@ -34,8 +34,8 @@ $$ \delta \int \left[ \frac{1}{2}\rho g \left( z + \frac{\lambda}{\rho g} \right
 1. Contact angle is hard to use if we are to employ the variation method.
 2. And as you see, if we add a constrain of Volume, the problem gets really tricky. I think we can apply the following method:
    Introduce some energy that is proportional to the change in volume:
-   $$ E = \alpha\left( \int zr \mathrm{d}r - \frac{V}{2\pi} \right)^2, $$
-   where $\alpha V^2 \gg \sigma R^2$.
+   
+$$ E = \alpha\left( \int zr \mathrm{d}r - \frac{V}{2\pi} \right)^2, \quad \text{where} \quad \alpha V^2 \gg \sigma R^2. $$
 
 We just need to find the minimum of
 
