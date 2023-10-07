@@ -24,12 +24,12 @@ double Random() {
 }
 
 double H(double *h) {			// Calculating the energy
-	double E = 0, w = V;
+	double E = 0, w = 0;
 	for(int r=0;r<=2*R;r++)		// Actual energy (multiplied by 1e6)
 		E += 0.5 * rho * g * r / 1e6 * pow(h[r] / 1e6, 2.0) + s * r / 1e6 * sqrt(1 + pow(h[r+1] - h[r], 2.0));
 	for(int r=0;r<=2*R;r++)		// Change in Volume (multiplied by 1e6)
 		w += r / 1e6 * h[r] / 1e6;
-	return E + a * pow(w / V, 2.0);
+	return E + a * pow(w - V, 2.0);
 }
 
 int main() {
@@ -46,23 +46,25 @@ int main() {
 		inf[r] = fmax(0.0, z[r] - z[0]/5.0);	// Set the boundary for variation
 	}
 
-	a = s * R * R / V / V / 1e6 * 50;		// \alpha V^2 \gg sR^2
+	a = s * R * R / V / V / 1e6 * 1000;		// \alpha V^2 \gg sR^2
 	printf("\\alpha = %f\n", a);
 
-	double T_0 = 1e3, T = 1e3, beta = 0.999;
-	while(T >= 1e-13) {
+	double T_0 = 1000, T = 1000, beta = 0.999;
+	while(T >= 1e-6) {
 		double *h = new double[20002];
 		for(int r=0;r<=2*R;r++) {
 			double infimum = inf[r] + (z[r] - inf[r]) * T / T_0;
 			double supremum = z[r] + (sup[r] - z[r]) * T / T_0;
 			h[r] = infimum + (supremum - infimum) * Random();	// Variation at each point
 		}
-		double p = exp(-H(z)/T);
-		double q = exp(-H(h)/T);	// Simulate annealing, using the Boltzmann distribution
-		q /= (p + q);
+		// double p = exp(-H(z)/T);
+		// double q = exp(-H(h)/T);
+		// q /= (p + q);
+		double p = exp((H(h) - H(z)) / T);		// Simulate annealing, using the Boltzmann distribution
+		double q = 1 / (1 + p);
 		double d = Random();
 		if(d <= q)
-			z = h;				// Update the equation
+			z = h, printf("*");				// Update the equation
 		T *= beta;				// Cooling down
 	}
 
@@ -71,6 +73,8 @@ int main() {
 		v += r / 1e6 * z[r] / 1e6;
 	}
 	printf("\nVolume = %f    Difference: %f\n", v, v - V);
+	
+	printf("Original Energy: %f    Current Energy: %f\n", H(sphere), H(z));
 
 	freopen("discrete.out", "w", stdout);
 
