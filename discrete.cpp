@@ -42,29 +42,35 @@ int main() {
 		z[r] = fmax(0.0, sqrt(R*R*2 - r*r) - R);
 		sphere[r] = z[r];		// The equation of a sphere
 		V += r / 1e6 * z[r] / 1e6;			// The original Volume (multiplied by 1e6)
-		sup[r] = z[r] + z[0]/5.0;
-		inf[r] = fmax(0.0, z[r] - z[0]/5.0);	// Set the boundary for variation
+		sup[r] = z[r] + z[0]/10.0;
+		inf[r] = fmax(0.0, z[r] - z[0]/10.0);	// Set the boundary for variation
 	}
 
-	a = s * R * R / V / V / 1e6 * 1000;		// \alpha V^2 \gg sR^2
+	a = s * R * R / V / V / 1e6 * 0;		// \alpha V^2 \gg sR^2
 	printf("\\alpha = %f\n", a);
 
-	double T_0 = 1000, T = 1000, beta = 0.999;
-	while(T >= 1e-6) {
+	double T_0 = 100, beta = 0.999;
+	double T = T_0;
+	while(T >= 1e-11) {
 		double *h = new double[20002];
 		for(int r=0;r<=2*R;r++) {
 			double infimum = inf[r] + (z[r] - inf[r]) * T / T_0;
 			double supremum = z[r] + (sup[r] - z[r]) * T / T_0;
 			h[r] = infimum + (supremum - infimum) * Random();	// Variation at each point
 		}
+		printf("H = %f\n", H(h));
 		// double p = exp(-H(z)/T);
 		// double q = exp(-H(h)/T);
 		// q /= (p + q);
+		/*
 		double p = exp((H(h) - H(z)) / T);		// Simulate annealing, using the Boltzmann distribution
 		double q = 1 / (1 + p);
 		double d = Random();
 		if(d <= q)
 			z = h, printf("*");				// Update the equation
+		*/
+		if(H(h) < H(z))			// Greedy Algorithm
+			z = h;
 		T *= beta;				// Cooling down
 	}
 
@@ -79,7 +85,7 @@ int main() {
 	freopen("discrete.out", "w", stdout);
 
 	for(int r=0;r<=2*R;r+=100) {
-		printf("%10.4f    %10.4f    %10.4f\n", z[r], sphere[r], z[r] - sphere[r]);		// Display the difference from a sphere
+		printf("%9.4f    %9.4f    %9.4f\n", z[r], sphere[r], z[r] - sphere[r]);		// Display the difference from a sphere
 		plot[r/100][int(45.0 * z[r] / sphere[0])] = true;
 		plotsph[r/100][int(45.0 * sphere[r] / sphere[0])] = true;
 	}
