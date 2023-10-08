@@ -57,7 +57,7 @@ Then we use
 
 to do the calculations.
 
-We apply the method of simulate annealing to narrow the upper and lower bounds while we use greedy algorithm to find the minimum.
+We apply the method of simulate annealing to narrow the upper and lower bounds while we use **greedy algorithm** to find the minimum.
 
 
 
