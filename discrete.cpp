@@ -97,7 +97,7 @@ int main() {
 	freopen("discrete.out", "w", stdout);
 
 	for(int r=0;r<=2*R;r+=100) {
-		printf("%9.4f    %9.4f    %9.4f\n", z[r], sphere[r], z[r] - sphere[r]);		// Display the difference from a sphere
+		printf("%9.4f    %9.4f    %13.8f\n", z[r], sphere[r], z[r] - sphere[r]);		// Display the difference from a sphere
 		plot[r/100][int(45.0 * z[r] / sphere[0])] = true;
 		plotsph[r/100][int(45.0 * sphere[r] / sphere[0])] = true;
 	}
