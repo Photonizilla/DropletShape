@@ -29,7 +29,7 @@ double H(double *h) {			// Calculating the energy
 		E += 0.5 * rho * g * r / 1e6 * pow(h[r] / 1e6, 2.0) + s * r / 1e6 * sqrt(1 + pow(h[r+1] - h[r], 2.0));
 	for(int r=0;r<=2*R;r++)		// Change in Volume (multiplied by 1e6)
 		w += r / 1e6 * h[r] / 1e6;
-	return E + a * pow(w - V, 2.0);
+	return E + a * abs(w - V);
 }
 
 int main() {
@@ -46,14 +46,14 @@ int main() {
 		inf[r] = fmax(0.0, z[r] - z[0]/5.0);	// Set the boundary for variation
 	}
 
-	a = s * R * R / V / V / 1e6 * 1000;		// \alpha V^2 \gg sR^2
+	a = s * R * R / V / 1e6;		// \alpha V \gg sR^2
 	printf("\\alpha = %f\n", a);
 
 	double T_0 = 1000, T = 1000, beta = 0.999;
 	while(T >= 1e-6) {
 		double *h = new double[20002];
 		for(int r=0;r<=2*R;r++) {
-			double infimum = inf[r] + (z[r] - inf[r]) * T / T_0;
+			double infimum = z[r] - (z[r] - inf[r]) * T / T_0;
 			double supremum = z[r] + (sup[r] - z[r]) * T / T_0;
 			h[r] = infimum + (supremum - infimum) * Random();	// Variation at each point
 		}

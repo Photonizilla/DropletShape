@@ -35,13 +35,13 @@ $$ \delta \int \left[ \frac{1}{2}\rho g \left( z + \frac{\lambda}{\rho g} \right
 2. And as you see, if we add a constrain of Volume, the problem gets really tricky. I think we can apply the following method:
    Introduce some energy that is proportional to the change in volume.
 
-For simplicity's sake, take the square do no harm:
+The absolute value is needed.
 
-$$ E' = \alpha\left( \int zr \mathrm{d}r - \frac{V}{2\pi} \right)^2, \quad \text{where} \quad \alpha V^2 \gg \sigma R^2. $$
+$$ E' = \alpha\left| \int zr \mathrm{d}r - \frac{V}{2\pi} \right|, \quad \text{where} \quad \alpha V \gg \sigma R^2. $$
 
 We just need to find the minimum of
 
-$$ E = \int \left( \frac{1}{2}\rho g z^2 r + \sigma \sqrt{1 + (z')^2} r \right) \mathrm{d}r + \alpha\left( \int zr \mathrm{d}r - \frac{V}{2\pi} \right)^2. $$
+$$ E = \int \left( \frac{1}{2}\rho g z^2 r + \sigma \sqrt{1 + (z')^2} r \right) \mathrm{d}r + \alpha\left| \int zr \mathrm{d}r - \frac{V}{2\pi} \right|. $$
 
 ## Discrete Variation
 
