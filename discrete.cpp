@@ -8,7 +8,7 @@ double g = 9.8;
 double rho = 1e3;
 double s = 0.0728;
 double V;
-double inf[20002], sup[20002];
+double displacement;
 double sphere[20002];
 int R = 10000;
 double a;		// \alpha V^2 \gg sR^2
@@ -42,27 +42,30 @@ int main() {
 		z[r] = fmax(0.0, sqrt(R*R*2 - r*r) - R);
 		sphere[r] = z[r];		// The equation of a sphere
 		V += r / 1e6 * z[r] / 1e6;			// The original Volume (multiplied by 1e6)
-		sup[r] = z[r] + z[0]/10.0;
-		inf[r] = fmax(0.0, z[r] - z[0]/10.0);	// Set the boundary for variation
+		displacement = z[0] / 50.0;	// Set the boundary for variation
 	}
 
 	a = s * R * R / V / 1e6;		// \alpha V \gg sR^2
 	printf("\\alpha = %f\n", a);
 
-	double T_0 = 100, beta = 0.999;
+	double T_0 = 100, beta = 0.9999;
 	double T = T_0;
 	while(T >= 1e-6) {
 		double *h = new double[20002];
 		for(int r=0;r<=2*R;r++) {
-			double infimum = inf[r] + (z[r] - inf[r]) * T / T_0;
-			double supremum = z[r] + (sup[r] - z[r]) * T / T_0;
-			if(r < 2 || (r >= 2 && 2.0 * z[r-1] - z[r-2] < infimum + 1000)) {
-				h[r] = infimum + (supremum - infimum) * Random();	// Variation at each point
-			} else {
-				do {
-					h[r] = infimum + (supremum - infimum) * Random();
-				} while(h[r] + h[r-2] >= 2.0 * h[r-1]);
+			double infimum = z[r] - displacement * T / T_0;
+			double supremum;
+			if(r == 0) {
+				supremum = z[0] + displacement * T / T_0;
+			} else if(r == 1) {
+				supremum = z[0];
+			} else if(r >= 2) {
+				if(2.0 * z[r-1] - z[r-2] > infimum)
+					supremum = 2.0 * z[r-1] - z[r-2];
+				else
+					supremum = infimum;
 			}
+			h[r] = infimum + (supremum - infimum) * Random();	// Variation at each point
 		}
 		system("clear");
 		printf("log_10 T = %f\n", log10(T));
